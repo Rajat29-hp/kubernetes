@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+    environment: development
+    app: nginx
+spec:
+  containers:
+  - name: boxone
+    image: nginx:latest
+    ports:
+    - containerPort: 80
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+    environment: production
+    app: nginx
+spec:
+  containers:
+  - name: boxtwo
+    image: mysql:latest
+    ports:
+    - containerPort: 80
+  - name: boxthree
+    image: httpd
+
+
+
+# -----------------commands-----------------------#
+
+# kubectl apply -f firstpod.yaml
+# kubeclt get pods
+# kubeclt get pods --show-labels (view all the labels)
+# kubeclt get pods -L app (tabular view only for app label)
+
