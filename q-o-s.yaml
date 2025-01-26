@@ -1,0 +1,67 @@
+#  Type of Quality of Service : mentioned inside pod configuration file in kubernetes
+
+ #--------------------------------------besteffect (Where no resources are mentioned)-----------------------------------------#\
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+    environment: development
+    app: nginx
+component: backend
+client: Bob
+spec:
+  containers:
+  - name: boxone
+    image: nginx:latest
+    ports:
+    - containerPort: 80
+
+ #--------------------------------------Burstable (Where resources are mentioned with Limit > request)-----------------------------------------#
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+    environment: development
+    app: nginx
+component: backend
+client: Bob
+spec:
+  containers:
+  - name: boxone
+    image: nginx:latest
+    ports:
+    - containerPort: 80
+    resources:
+       limits:
+         cpu: 200m
+         memory: 200Mi
+       request:
+         cpu: 100m
+         limit:100Mi
+
+ #--------------------------------------Guaranteed Burstable (Where resources are mentioned with Limit = request)-----------------------------------------#\
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+    environment: development
+    app: nginx
+component: backend
+client: Bob
+spec:
+  containers:
+  - name: boxone
+    image: nginx:latest
+    ports:
+    - containerPort: 80
+    resources:
+       limits:
+         cpu: 200m
+         memory: 200Mi
+       request:
+         cpu: 200m
+         limit:200Mi
+
