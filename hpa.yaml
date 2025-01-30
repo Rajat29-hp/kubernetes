@@ -1,0 +1,16 @@
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: nginx-dp-hpa
+spec:
+  maxreplicas: 10
+  minselector: 3
+     apiVersion: apps/v1
+     kind: deployment
+     name: ngnix-deployment
+  targetCPUUtilizationPercentage: 50
+
+#-------------------------------------COMMNADS------------#
+
+  # kubectl apply -f hpa.yaml
+  # kubectl get hpa
