@@ -1,0 +1,36 @@
+#------------------Role create --------------------------#
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: production
+  name: poduction-team-rbca
+rules:
+- apiGroups: [""] # "" indicates the core API group
+  resources: ["pods"]
+  verbs: ["get", "watch", "list", "create"]
+
+- apiGroups: [""] # "" indicates the core API group
+  resources: ["deployment"]
+  verbs: ["get", "watch", "list" ,"create"]
+
+- apiGroups: [""] # "" indicates the core API group
+  resources: ["secret"]
+  verbs: ["get", "watch", "list"]
+
+#------------------Role bindig --------------------------#
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: production-anything
+  namespace: production
+subjects:
+- kind: user
+  name: bob 
+# namespace: production
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role #this must be Role or ClusterRole
+  name: production-team-rbca
+  apiGroup: rbac.authorization.k8s.io
